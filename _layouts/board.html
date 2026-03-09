@@ -97,93 +97,102 @@ $('#fullpage').fullpage({
     });
 });
 </script>
-    <style>/* 1. 모든 세션을 0~5번처럼 한 화면에 고정 */
+    /* 1. 모든 세션을 한 화면에 고정하되, 넘치면 내부 스크롤 허용 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
-    overflow: hidden !important; /* 화면 밖으로 안 나가게 */
+    overflow: hidden !important; 
+    position: relative;
 }
 
-/* 2. 세션 6 (리포트 목록) 축소 */
-#section6 .text_area {
-    padding-top: 60px !important;
+/* 2. 세션 6, 7 내부 스크롤 허용 (핵심 수정) */
+#section6 .text_area, #section7 .text_area {
+    height: 100vh !important;
+    overflow-y: auto !important; /* 내용 많으면 세션 안에서 스크롤 */
+    -webkit-overflow-scrolling: touch; /* 아이폰 부드러운 스크롤 */
+    padding-top: 40px !important; /* 상단 여백 약간 축소 */
+    padding-bottom: 60px !important; /* 하단 가려짐 방지 */
 }
+
+/* 세션 6 (리포트 목록) 초압축 */
 #section6 .board-row {
-    padding: 6px 15px !important; /* 간격 축소 */
+    padding: 8px 15px !important;
+    border-bottom: 1px solid #eee;
 }
 #section6 .board-row span {
-    font-size: 0.8rem !important; /* 글씨 축소 */
+    font-size: 0.85rem !important;
+}
+#section6 .pagination {
+    margin-top: 15px !important;
+    padding-bottom: 20px;
 }
 
 /* 세션 7 (지점 안내) 초소형 압축 */
-#section7 .text_area {
-    padding: 50px 5px 10px 5px !important; /* 상단 여백 최소화 */
-}
-
 #section7 .sub_title {
-    font-size: 1rem !important; /* 제목 크기 축소 */
-    margin-bottom: 8px !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+    text-align: center;
 }
 
-/* 지점 버튼 그리드 초소형화 */
-#section7 .town-grid {
-    gap: 2px !important; /* 버튼 사이 간격 최소화 */
+/* 지점 버튼 그리드 최적화 */
+.town-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px !important;
+    justify-content: center;
 }
 
-#section7 .town-grid a {
-    width: calc(20% - 2px) !important; /* PC/모바일 공통 한 줄에 5개씩 */
-    height: 24px !important; /* 버튼 높이 최소화 */
-    font-size: 0.6rem !important; /* 글자 크기 최소화 */
-    padding: 0 !important;
-    margin-bottom: 2px !important;
-    line-height: 24px !important;
-    border-radius: 2px !important;
-}
-
-/* 하단 전화번호 영역 축소 */
-#section7 .text_area div[style*="margin-top: 30px"] {
-    margin-top: 10px !important;
-}
-
-#section7 a[href^="tel"] {
-    padding: 5px 15px !important;
-    font-size: 1rem !important;
+.town-grid a {
+    display: inline-block;
+    width: calc(20% - 5px) !important; /* PC 5개 */
+    height: 28px !important;
+    line-height: 28px !important;
+    font-size: 0.7rem !important;
+    background: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px !important;
 }
 
 @media screen and (max-width: 768px) {
-    #section7 .sub_title { font-size: 0.9rem !important; }
-    /* 모바일에서 버튼이 너무 작으면 터치가 힘드니 4개로 조정하거나 이대로 유지 */
     #section7 .town-grid a {
-        width: calc(25% - 2px) !important; /* 모바일은 4개씩 */
+        width: calc(25% - 5px) !important; /* 모바일 4개 */
+        height: 32px !important; /* 터치 고려해서 약간 키움 */
+        line-height: 32px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* 모바일에서 전화번호 버튼 강조 */
+    #section7 a[href^="tel"] {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+        padding: 12px !important;
+        font-size: 1.2rem !important;
+        background: #d32f2f !important;
+        color: #fff !important;
+        border-radius: 50px;
     }
 }
 
-/* 세션 8 푸터: 박스는 중앙에, 글자는 왼쪽 정렬 */
+/* 세션 8 푸터 최적화 */
 #section8 {
     background: #1a1a1a !important;
 }
-
-#section8 .fp-tableCell {
-    display: flex !important;
-    align-items: center !important;   /* 세로 중앙 */
-    justify-content: center !important; /* 가로 중앙 */
-    width: 100% !important;
-}
-
 #section8 footer {
-    margin: 0 auto !important;
-    text-align: left !important; /* 텍스트는 다시 왼쪽으로! */
     width: 100%;
-    max-width: 640px; /* 사장님 원래 소스 수치로 복구 */
-    padding: 20px;
-    box-sizing: border-box;
+    max-width: 640px;
+    margin: 0 auto !important;
+    padding: 30px 20px;
+    color: #888;
+    text-align: left !important;
 }
-
 #section8 hr {
     border: 0;
     border-top: 1px solid #333;
-    margin: 0 0 15px 0 !important; /* 구분선도 왼쪽 정렬 */
-    width: 100%;
-}</style>
+    margin-bottom: 15px;
+}
 </head>
 <body>
     <header class="main_header">
@@ -372,6 +381,7 @@ $('#fullpage').fullpage({
 </body>
 
 </html>
+
 
 
 
