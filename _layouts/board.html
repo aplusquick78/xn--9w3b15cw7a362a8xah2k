@@ -90,30 +90,36 @@
 </script>
 
 <style>
-/* 1. PC 버전: 사장님의 오리지널 상태를 100% 보존합니다. */
+/* PC 버전: 사장님 원래 소스 100% 유지 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
 }
 
-/* 2. 모바일(768px 이하): fullPage.js의 강제 테이블 구조를 '강제 파괴' */
+/* 모바일 전용: 6, 7번 세션의 '고집'을 꺾는 코드 */
 @media screen and (max-width: 768px) {
-    /* 6번(리포트), 7번(지점안내) 세션의 높이 제한을 완전히 풉니다. */
+    /* 핵심: 엔진이 만든 fp-tableCell의 100% 높이 제한을 완전히 파괴합니다 */
     #section6, #section7,
     #section6 .fp-tableCell, #section7 .fp-tableCell,
     #section6 .fp-table, #section7 .fp-table {
         height: auto !important;
-        min-height: 100vh !important; /* 최소 한 화면은 차지하게 */
-        display: block !important;    /* 테이블 구조를 일반 박스로 변경 */
+        min-height: 100vh !important;
+        display: block !important; /* table 구조를 block으로 강제 변경 */
     }
 
-    /* 상단 아이콘(main_header)에 글자가 가려지지 않도록 여백 확보 */
+    /* 상단 메뉴와 겹치지 않게 여백 충분히 확보 */
     #section6, #section7 {
-        padding-top: 100px !important; 
-        padding-bottom: 50px !important;
+        padding-top: 100px !important;
+        padding-bottom: 60px !important;
         box-sizing: border-box !important;
     }
 
-    /* 지점 안내 버튼 그리드 (4개씩 신속 정렬) */
+    /* 세션 6 리포트 목록 간격 조정 */
+    #section6 .board-row {
+        padding: 12px 15px !important;
+        border-bottom: 1px solid #eee !important;
+    }
+
+    /* 지점 버튼 그리드 4개 정렬 */
     .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
@@ -121,29 +127,23 @@
         justify-content: center !important;
     }
     .town-grid a {
-        width: calc(25% - 10px) !important;
-        height: 36px !important;
-        line-height: 36px !important;
+        width: calc(25% - 8px) !important;
+        height: 34px !important;
+        line-height: 34px !important;
         font-size: 0.75rem !important;
-        background: #fff !important;
-        border: 1px solid #ddd !important;
-        border-radius: 4px !important;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
         text-align: center;
-        display: block;
     }
 }
 
-/* 3. 푸터 정렬: 박스 중앙, 글자 왼쪽 (사장님 요청사항) */
+/* 푸터: 박스 중앙, 글자 왼쪽 정렬 */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto !important;
-    padding: 30px 20px !important;
-    text-align: left !important;
-    color: #888;
+    width: 100%; max-width: 640px; margin: 0 auto !important;
+    padding: 30px 20px !important; text-align: left !important; color: #888;
 }
-#section8 hr { border: 0; border-top: 1px solid #333; margin-bottom: 15px; }
 </style>
     
 </head>
@@ -334,6 +334,7 @@
 </body>
 
 </html>
+
 
 
 
