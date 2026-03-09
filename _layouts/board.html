@@ -90,50 +90,57 @@
 </script>
 
 <style>
-/* 1. PC: 사장님의 오리지널 디자인 유지 */
-.section, .fp-section, .fp-tableCell { height: 100vh !important; }
+/* 1. PC 및 모바일 공통: 모든 세션을 한 화면에 가둡니다. */
+.section, .fp-section, .fp-tableCell {
+    height: 100vh !important;
+    overflow: hidden !important; /* 캡처처럼 아래가 안 잘리고 화면에 꽉 차게 */
+    position: relative;
+}
 
-/* 2. 모바일: 잘림 현상의 주범인 .fp-tableCell을 강제 무력화 */
+/* 2. 모바일(768px 이하) 전용: 캡처 화면처럼 비율 압축 */
 @media screen and (max-width: 768px) {
-    /* [긴급] 모든 섹션의 내부 높이 제한을 풀고 일반 스크롤로 변경 */
-    .fp-section, .fp-table, .fp-tableCell {
-        height: auto !important;
-        min-height: 100vh !important;
-        display: block !important; /* 테이블 구조 파괴 */
+    /* 배경색이 화면을 꽉 채우도록 설정 */
+    #fullpage, .fp-table, .fp-tableCell {
+        height: 100vh !important;
+        display: table !important; /* 오리지널 구조 유지 */
     }
 
-    /* 리포트(6)와 지점안내(7) 세션만 내용만큼 늘어나도록 설정 */
-    #section6, #section7 {
-        height: auto !important;
-        padding-top: 100px !important; /* 상단 아이콘 겹침 방지 */
-        padding-bottom: 50px !important;
+    /* 상단 아이콘 간섭 방지 (캡처 화면처럼) */
+    .section {
+        padding-top: 80px !important;
+        padding-bottom: 20px !important;
+        box-sizing: border-box !important;
     }
 
-    /* 지점 안내 그리드 (4개씩 딱딱 맞게) */
+    /* 캡처의 '빠른배송 성남 퀵'처럼 텍스트 영역 상단 여백 추가 */
+    .text_area {
+        vertical-align: top !important; /* 중앙이 아닌 상단으로 붙임 */
+        padding-top: 10px !important;
+    }
+
+    /* 세션 7 지점 버튼: 터치하기 편하게 4개씩 큼직하게 정렬 */
     .town-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 5px !important;
-        justify-content: center !important;
-        padding: 0 10px !important;
+        display: flex !important; flex-wrap: wrap !important;
+        gap: 6px !important; justify-content: center !important;
     }
     .town-grid a {
-        width: calc(25% - 10px) !important;
-        height: 35px !important;
-        line-height: 35px !important;
-        font-size: 0.75rem !important;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        text-align: center;
+        width: calc(25% - 10px) !important; /* 모바일 4개 */
+        height: 38px !important; line-height: 38px !important;
+        font-size: 0.75rem !important; background: #fff !important;
+        border: 1px solid #ddd !important; border-radius: 4px !important;
+    }
+
+    /* 리포트(6)와 지점안내(7)도 억지로 화면에 가둡니다. */
+    #section6, #section7 {
+        height: 100vh !important;
     }
 }
 
-/* 3. 푸터: 사장님 요청 스타일 (왼쪽 정렬) */
+/* 푸터: 박스는 중앙, 글자는 왼쪽 정렬 구조 유지 */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
-    padding: 30px 20px !important; text-align: left !important; color: #888;
+    padding: 30px 20px !important; text-align: left !important;
 }
 </style>
     
@@ -325,6 +332,7 @@
 </body>
 
 </html>
+
 
 
 
