@@ -257,7 +257,7 @@ $('#fullpage').fullpage({
             <br>
             <div style="background: #fff; border: 1px solid #e1e8ef; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                 
-                {% if page.url == "/" or page.url == "/index.html" %}
+                {% if paginator.posts %}
                     {% for post in paginator.posts %}
                     <a href="{{ post.url }}" class="board-row" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f0f0f0; text-decoration: none; cursor: pointer; position: relative; z-index: 10000;">
                         <div style="flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 15px;">
@@ -280,27 +280,29 @@ $('#fullpage').fullpage({
                 {% endif %}
             </div>
 
-            {% if page.url == "/" or page.url == "/index.html" %}
+            {% if paginator.total_pages > 1 %}
             <div class="pagination" style="text-align: center; margin-top: 20px;">
-                {% if paginator.total_pages > 1 %}
                 <div style="display: inline-flex; gap: 8px; justify-content: center; align-items: center;">
                     {% if paginator.previous_page %}
-                        <a href="{{ paginator.previous_page_path }}" style="text-decoration: none; color: #333; font-weight: bold;">[이전]</a>
+                        <a href="{{ paginator.previous_page_path | replace: '//', '/' }}" style="text-decoration: none; color: #333; font-weight: bold;">[이전]</a>
                     {% endif %}
 
                     {% for num in (1..paginator.total_pages) %}
                         {% if num == paginator.page %}
                             <strong style="color: #d32f2f; text-decoration: underline; font-size: 1.1rem;">{{ num }}</strong>
                         {% elsif num <= 5 %}
-                            <a href="{{ site.paginate_path | replace: ':num', num | prepend: site.baseurl | replace: '//', '/' }}" style="text-decoration: none; color: #666;">{{ num }}</a>
+                            {% if num == 1 %}
+                                <a href="/" style="text-decoration: none; color: #666;">{{ num }}</a>
+                            {% else %}
+                                <a href="{{ site.paginate_path | replace: ':num', num | prepend: site.baseurl | replace: '//', '/' }}" style="text-decoration: none; color: #666;">{{ num }}</a>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
 
                     {% if paginator.next_page %}
-                        <a href="{{ paginator.next_page_path }}" style="text-decoration: none; color: #333; font-weight: bold;">[다음]</a>
+                        <a href="{{ paginator.next_page_path | replace: '//', '/' }}" style="text-decoration: none; color: #333; font-weight: bold;">[다음]</a>
                     {% endif %}
                 </div>
-                {% endif %}
             </div>
             {% endif %}
 
@@ -370,4 +372,5 @@ $('#fullpage').fullpage({
 </body>
 
 </html>
+
 
