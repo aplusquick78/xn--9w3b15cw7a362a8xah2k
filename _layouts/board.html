@@ -78,7 +78,7 @@
             if (index == 1) {
                $('.time_5s .img').addClass('active');
             }
-            if (index == 2) {
+            if (index == 1) {
                $('.main_header .app_down').addClass('active');
             }
             if (index == 4) {
@@ -90,28 +90,28 @@
 </script>
 
 <style>
-/* 1. PC/기본: 사장님 원래 스타일 유지 */
+/* PC 버전: 사장님 원래 소스 그대로 유지 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
 }
 
-/* 2. 모바일: 리포트(6)와 지점안내(7)만 높이 제한 해제 */
+/* 모바일 전용: 딱 6, 7번의 '속살(fp-tableCell)'까지 다 풀어버립니다 */
 @media screen and (max-width: 768px) {
-    /* 이 두 세션만 내용 길이에 따라 늘어나게 합니다 */
-    #section6, #section7, 
-    #section6 .fp-tableCell, #section7 .fp-tableCell {
+    /* 6번, 7번 세션의 모든 자식 요소까지 높이 제한을 '강제'로 해제 */
+    #section6, #section6 *, 
+    #section7, #section7 * {
         height: auto !important;
-        min-height: 100vh !important;
-        display: block !important;
+        min-height: auto !important;
+        display: block !important; /* 테이블 구조를 일반 박스로 변경 */
     }
 
-    /* 상단 아이콘 간섭 방지 여백 */
+    /* 상단 아이콘에 글자 안 가리게 여백만 살짝 */
     #section6, #section7 {
-        padding-top: 80px !important;
-        padding-bottom: 40px !important;
+        padding-top: 90px !important;
+        padding-bottom: 50px !important;
     }
 
-    /* 지점 버튼 그리드 4개씩 정렬 */
+    /* 지점 버튼 4개 정렬 (사장님 원래 간격 유지) */
     .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
@@ -126,17 +126,15 @@
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
-        text-align: center;
     }
 }
 
-/* 3. 푸터: 박스 중앙, 글자 왼쪽 (사장님 요청사항) */
+/* 푸터: 요청하신 왼쪽 정렬 복구 */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
     padding: 30px 20px !important; text-align: left !important; color: #888;
 }
-#section8 hr { border: 0; border-top: 1px solid #333; margin-bottom: 15px; }
 </style>
     
 </head>
@@ -327,6 +325,7 @@
 </body>
 
 </html>
+
 
 
 
