@@ -75,8 +75,12 @@ $(document).ready(function() {
         navigationPosition: 'right',
         scrollingSpeed: 500,
         sectionSelector: '.section',
-        // 모바일(768px 이하)에서 풀페이지 고정 해제 -> 일반 스크롤 모드 전환
         responsiveWidth: 768, 
+        // 모바일에서 엔진이 화면 높이를 강제로 계산하지 않도록 추가
+        autoScrolling: true,
+        fitToSection: true,
+        responsiveHeight: 0,
+        
         afterRender: function() {
             $(window).trigger('resize');
         },
@@ -91,9 +95,15 @@ $(document).ready(function() {
             }
         }
     });
+
+    // 모바일에서 스크롤이 먹통되는 현상 방지
+    if ($(window).width() <= 768) {
+        $.fn.fullpage.setAutoScrolling(false);
+        $.fn.fullpage.setFitToSection(false);
+    }
 });
 </script>
-    
+
 <style>
 /* PC 버전 기본 유지 */
 .section, .fp-section, .fp-tableCell {
@@ -102,69 +112,79 @@ $(document).ready(function() {
 
 /* 모바일 전용 최적화 */
 @media screen and (max-width: 768px) {
-    /* 풀페이지 응답형 모드일 때 높이값 해제 */
-    .fp-responsive .fp-section, 
-    .fp-responsive .fp-table, 
-    .fp-responsive .fp-tableCell {
+    /* 풀페이지 응답형 모드일 때 높이값 및 테이블 구조 해제 */
+    html, body {
+        overflow-y: auto !important;
         height: auto !important;
-        min-height: 100vh !important; /* 기본은 화면 꽉 차게 */
-        display: block !important;
     }
 
-    /* 리포트 목록(6)과 지점안내(7)는 내용이 길면 늘어나도록 */
+    #fullpage, .fp-section, .fp-table, .fp-tableCell {
+        height: auto !important;
+        min-height: 100vh !important;
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    /* 리포트 목록(6)과 지점안내(7) 여백 넉넉히 확보 */
     #section6, #section7 {
         height: auto !important;
-        padding: 80px 0 60px 0 !important;
+        padding: 100px 0 80px 0 !important;
+        display: block !important;
     }
 
     /* 세션 6 목록 간격 및 글씨 초압축 */
     #section6 .board-row {
-        padding: 8px 15px !important;
+        padding: 12px 15px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        border-bottom: 1px solid #eee !important;
     }
     #section6 .board-row span {
-        font-size: 0.8rem !important;
+        font-size: 0.85rem !important;
     }
 
     /* 세션 7 지점 그리드 (4개씩) */
     .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
-        gap: 4px !important;
+        gap: 6px !important;
         justify-content: center !important;
-        padding: 0 10px !important;
+        padding: 0 15px !important;
     }
     .town-grid a {
-        width: calc(25% - 6px) !important; 
-        height: 30px !important;
-        line-height: 30px !important;
-        font-size: 0.7rem !important;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        text-align: center;
-        display: block;
+        width: calc(25% - 8px) !important; 
+        height: 34px !important;
+        line-height: 34px !important;
+        font-size: 0.75rem !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        border-radius: 4px !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
-    /* 하단 버튼 가독성 */
+    /* 하단 전화번호 버튼 가독성 */
     #section7 a[href^="tel"] {
         display: block !important;
         width: 85% !important;
-        margin: 20px auto 0 !important;
-        padding: 12px !important;
-        font-size: 1.1rem !important;
+        margin: 30px auto 0 !important;
+        padding: 15px !important;
+        font-size: 1.2rem !important;
         background: #d32f2f !important;
         color: #fff !important;
         border-radius: 50px !important;
-        text-align: center;
-        font-weight: bold;
+        text-align: center !important;
+        font-weight: bold !important;
     }
 }
 
 /* 푸터 정렬 유지 */
-#section8 { background: #1a1a1a !important; }
+#section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
-    padding: 30px 20px !important; text-align: left !important; color: #888;
+    padding: 40px 20px !important; text-align: left !important; color: #888;
 }
 #section8 hr { border: 0; border-top: 1px solid #333; margin-bottom: 15px; }
 </style>
@@ -357,6 +377,7 @@ $(document).ready(function() {
 </body>
 
 </html>
+
 
 
 
