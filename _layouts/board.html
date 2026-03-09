@@ -90,44 +90,32 @@
 </script>
 
 <style>
-/* 1. PC 버전: 사장님의 오리지널 밸런스 유지 */
-.section, .fp-section, .fp-tableCell {
-    height: 100vh !important;
-}
+/* 1. PC: 사장님의 오리지널 디자인 유지 */
+.section, .fp-section, .fp-tableCell { height: 100vh !important; }
 
-/* 2. 모바일(768px 이하): 잘림 현상 원천 차단 */
+/* 2. 모바일: 잘림 현상의 주범인 .fp-tableCell을 강제 무력화 */
 @media screen and (max-width: 768px) {
-    /* [핵심] 엔진이 강제로 만든 내부 박스(fp-tableCell)의 높이 제한을 완전히 해제 */
-    .fp-responsive .fp-section, 
-    .fp-responsive .fp-table, 
-    .fp-responsive .fp-tableCell {
-        height: auto !important; /* 높이를 내용물에 맞게 자동으로 늘림 */
-        display: block !important; /* 테이블 구조를 일반 박스로 변경 */
+    /* [긴급] 모든 섹션의 내부 높이 제한을 풀고 일반 스크롤로 변경 */
+    .fp-section, .fp-table, .fp-tableCell {
+        height: auto !important;
         min-height: 100vh !important;
+        display: block !important; /* 테이블 구조 파괴 */
     }
 
-    /* 리포트(6)와 지점안내(7) 세션 여백 확보 */
+    /* 리포트(6)와 지점안내(7) 세션만 내용만큼 늘어나도록 설정 */
     #section6, #section7 {
         height: auto !important;
-        padding-top: 100px !important; /* 헤더 아이콘 겹침 방지 */
-        padding-bottom: 60px !important;
+        padding-top: 100px !important; /* 상단 아이콘 겹침 방지 */
+        padding-bottom: 50px !important;
     }
 
-    /* 세션 6 리포트 목록 (한 줄씩 신속하게 출력) */
-    .board-row {
-        display: flex !important;
-        justify-content: space-between !important;
-        padding: 12px 15px !important;
-        border-bottom: 1px solid #eee !important;
-        background: #fff;
-    }
-
-    /* 세션 7 지점 버튼 (4개씩 정렬) */
+    /* 지점 안내 그리드 (4개씩 딱딱 맞게) */
     .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
         gap: 5px !important;
         justify-content: center !important;
+        padding: 0 10px !important;
     }
     .town-grid a {
         width: calc(25% - 10px) !important;
@@ -141,11 +129,11 @@
     }
 }
 
-/* 3. 푸터: 사장님 요청대로 왼쪽 정렬 */
+/* 3. 푸터: 사장님 요청 스타일 (왼쪽 정렬) */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
-    padding: 40px 20px !important; text-align: left !important; color: #888;
+    padding: 30px 20px !important; text-align: left !important; color: #888;
 }
 </style>
     
@@ -337,6 +325,7 @@
 </body>
 
 </html>
+
 
 
 
