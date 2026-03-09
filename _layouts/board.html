@@ -66,83 +66,72 @@
     <script type="text/javascript" src="/file/examples.js"></script>
     <script type="text/javascript" src="/file/base.js"></script>
 
-<script type="text/javascript">
-   $(document).ready(function () {
-      $('#fullpage').fullpage({
-         'verticalCentered': false,
-         'css3': true,
-         'navigation': true,
-         'navigationPosition': 'right',
-         'scrollingSpeed': '500',
-         'afterLoad': function (anchorLink, index) {
-            if (index == 1) {
-               $('.time_5s .img').addClass('active');
-            }
-            if (index == 1) {
-               $('.main_header .app_down').addClass('active');
-            }
-            if (index == 4) {
-               $('.my_contents .img').addClass('active');
-            }
-         }
-      });
-   });
-</script>
-
 <style>
-/* 1. PC 및 모바일 공통: 모든 세션을 한 화면에 가둡니다. */
+/* 1. PC/기본: 사장님 원래 디자인 100% 보존 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
-    overflow: hidden !important; /* 캡처처럼 아래가 안 잘리고 화면에 꽉 차게 */
-    position: relative;
 }
 
-/* 2. 모바일(768px 이하) 전용: 캡처 화면처럼 비율 압축 */
+/* 2. 모바일(캡처 화면 상태): 아이콘 겹침 방지 및 꽉 찬 화면 */
 @media screen and (max-width: 768px) {
-    /* 배경색이 화면을 꽉 채우도록 설정 */
-    #fullpage, .fp-table, .fp-tableCell {
+    /* 캡처 화면처럼 배경색이 전체를 덮고 글자가 중앙-상단에 위치하게 합니다. */
+    .fp-tableCell {
+        display: table-cell !important; /* 오리지널 구조 유지 */
+        vertical-align: middle !important;
         height: 100vh !important;
-        display: table !important; /* 오리지널 구조 유지 */
     }
 
-    /* 상단 아이콘 간섭 방지 (캡처 화면처럼) */
+    /* 상단 헤더 아이콘에 글자가 가려지지 않게 섹션 전체에 패딩 부여 */
     .section {
-        padding-top: 80px !important;
+        padding-top: 85px !important;  /* 캡처 아이콘 높이만큼 신속하게 확보 */
         padding-bottom: 20px !important;
         box-sizing: border-box !important;
     }
 
-    /* 캡처의 '빠른배송 성남 퀵'처럼 텍스트 영역 상단 여백 추가 */
-    .text_area {
-        vertical-align: top !important; /* 중앙이 아닌 상단으로 붙임 */
-        padding-top: 10px !important;
-    }
-
-    /* 세션 7 지점 버튼: 터치하기 편하게 4개씩 큼직하게 정렬 */
-    .town-grid {
-        display: flex !important; flex-wrap: wrap !important;
-        gap: 6px !important; justify-content: center !important;
-    }
-    .town-grid a {
-        width: calc(25% - 10px) !important; /* 모바일 4개 */
-        height: 38px !important; line-height: 38px !important;
-        font-size: 0.75rem !important; background: #fff !important;
-        border: 1px solid #ddd !important; border-radius: 4px !important;
-    }
-
-    /* 리포트(6)와 지점안내(7)도 억지로 화면에 가둡니다. */
+    /* 리포트(6)와 지점안내(7)도 화면 높이에 딱 맞게 고정 */
     #section6, #section7 {
         height: 100vh !important;
     }
+
+    /* 지점 버튼 4개씩 정렬 (사장님 요청 스타일) */
+    .town-grid {
+        display: flex !important; flex-wrap: wrap !important;
+        gap: 5px !important; justify-content: center !important;
+        padding: 0 10px !important;
+    }
+    .town-grid a {
+        width: calc(25% - 10px) !important;
+        height: 32px !important; line-height: 32px !important;
+        font-size: 0.7rem !important; background: #fff !important;
+        border: 1px solid #ddd !important; border-radius: 4px !important;
+    }
 }
 
-/* 푸터: 박스는 중앙, 글자는 왼쪽 정렬 구조 유지 */
+/* 3. 푸터: 박스 중앙, 글자 왼쪽 (요청사항 유지) */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
     padding: 30px 20px !important; text-align: left !important;
 }
 </style>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    // 사장님이 검증하신 오리지널 스크립트 그대로 사용
+    $('#fullpage').fullpage({
+        'verticalCentered': false,
+        'css3': true,
+        'navigation': true,
+        'navigationPosition': 'right',
+        'scrollingSpeed': '500',
+        'afterLoad': function (anchorLink, index) {
+            if (index == 1) { $('.time_5s .img').addClass('active'); }
+            if (index == 2) { $('.main_header .app_down').addClass('active'); }
+            if (index == 4) { $('.my_contents .img').addClass('active'); }
+        }
+    });
+});
+</script>
     
 </head>
 <body>
@@ -332,6 +321,7 @@
 </body>
 
 </html>
+
 
 
 
