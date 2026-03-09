@@ -7,6 +7,10 @@ baseurl: ""
 future: true
 timezone: Asia/Seoul
 
+# 한 페이지에 10개씩 끊어서 보여주기 설정
+paginate: 10
+paginate_path: "/page:num/"
+
 # SEO 최적화 주소 설정
 permalink: /:path/
 
