@@ -67,70 +67,70 @@
     <script type="text/javascript" src="/file/base.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function () {
-    $('#fullpage').fullpage({
-        'verticalCentered': false,
-        'css3': true,
-        'navigation': true,
-        'navigationPosition': 'right',
-        'scrollingSpeed': '500',
-        'afterLoad': function (anchorLink, index) {
+   $(document).ready(function () {
+      $('#fullpage').fullpage({
+         'verticalCentered': false,
+         'css3': true,
+         'navigation': true,
+         'navigationPosition': 'right',
+         'scrollingSpeed': '500',
+         'afterLoad': function (anchorLink, index) {
             if (index == 1) {
-                $('.time_5s .img').addClass('active');
+               $('.time_5s .img').addClass('active');
             }
             if (index == 2) {
-                $('.main_header .app_down').addClass('active');
+               $('.main_header .app_down').addClass('active');
             }
             if (index == 4) {
-                $('.my_contents .img').addClass('active');
+               $('.my_contents .img').addClass('active');
             }
-        }
-    });
-});
+         }
+      });
+   });
 </script>
 
 <style>
-/* PC 버전: 사장님 스타일 그대로 유지 */
+/* 1. PC/기본: 사장님 원래 스타일 유지 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
 }
 
-/* 모바일 전용: 내용이 많은 세션만 잘림 방지 */
+/* 2. 모바일: 리포트(6)와 지점안내(7)만 높이 제한 해제 */
 @media screen and (max-width: 768px) {
-    /* 리포트 목록(6)과 지점안내(7)는 내용이 길면 스스로 늘어나게 합니다 */
-    #section6, #section7, #section6 .fp-tableCell, #section7 .fp-tableCell {
+    /* 이 두 세션만 내용 길이에 따라 늘어나게 합니다 */
+    #section6, #section7, 
+    #section6 .fp-tableCell, #section7 .fp-tableCell {
         height: auto !important;
         min-height: 100vh !important;
         display: block !important;
     }
 
-    /* 상단 아이콘과 겹치지 않게 여백 확보 */
+    /* 상단 아이콘 간섭 방지 여백 */
     #section6, #section7 {
         padding-top: 80px !important;
-        padding-bottom: 50px !important;
+        padding-bottom: 40px !important;
     }
 
-    /* 지점 버튼 그리드 (한 줄에 4개씩 신속하게 정렬) */
+    /* 지점 버튼 그리드 4개씩 정렬 */
     .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
-        gap: 5px !important;
+        gap: 4px !important;
         justify-content: center !important;
     }
     .town-grid a {
-        width: calc(25% - 8px) !important;
-        height: 34px !important;
-        line-height: 34px !important;
-        font-size: 0.75rem !important;
+        width: calc(25% - 6px) !important;
+        height: 32px !important;
+        line-height: 32px !important;
+        font-size: 0.7rem !important;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
         text-align: center;
-        display: block;
     }
 }
 
-/* 푸터: 박스 중앙, 글자 왼쪽 정렬 */
+/* 3. 푸터: 박스 중앙, 글자 왼쪽 (사장님 요청사항) */
 #section8 { background: #1a1a1a !important; height: auto !important; }
 #section8 footer {
     width: 100%; max-width: 640px; margin: 0 auto !important;
@@ -327,6 +327,7 @@ $(document).ready(function () {
 </body>
 
 </html>
+
 
 
 
