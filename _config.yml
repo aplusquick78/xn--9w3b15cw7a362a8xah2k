@@ -1,0 +1,32 @@
+title: "신속한 배송 평택퀵서비스"
+url: "https://평택퀵서비스.8222quick.com"
+description: "고덕신도시, 송탄, 안중, 평택항 등 평택 전 지역 24시 신속한 배송 전문. 오토바이, 다마스, 라보, 1톤용달 즉시 배차."
+baseurl: ""
+
+# 미래 날짜의 포스트도 표시하도록 설정 (오토포스팅 최적화)
+future: true
+timezone: Asia/Seoul
+
+# SEO 최적화 주소 설정
+permalink: /:path/
+
+# 빌드 및 렌더링 설정
+markdown: kramdown
+highlighter: rouge
+
+# 필수 플러그인 (Sitemap은 네이버 수집에 필수입니다)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+
+# 동네별 타겟 페이지(Towns) 활성화
+collections:
+  towns:
+    output: true
+
+# 피드 설정 (RSS 피드를 통해 네이버에 신규 글 알림)
+feed:
+  path: /feed.xml
+
+# 구글/네이버 웹마스터 도구 인증용 주석: 2026-03-09-Pyeongtaek-Final
