@@ -68,19 +68,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    try {
-        if ($.fn.fullpage.destroy) {
-            $.fn.fullpage.destroy('all');
-        }
-    } catch (e) {}
-
-$('#fullpage').fullpage({
-    verticalCentered: false,
-    css3: true,
-    navigation: true,
-    navigationPosition: 'right',
-    scrollingSpeed: 500,
-    sectionSelector: '.section',
+    $('#fullpage').fullpage({
+        verticalCentered: false,
+        css3: true,
+        navigation: true,
+        navigationPosition: 'right',
+        scrollingSpeed: 500,
+        sectionSelector: '.section',
+        // 모바일(768px 이하)에서 풀페이지 고정 해제 -> 일반 스크롤 모드 전환
+        responsiveWidth: 768, 
         afterRender: function() {
             $(window).trigger('resize');
         },
@@ -97,93 +93,82 @@ $('#fullpage').fullpage({
     });
 });
 </script>
+    
 <style>
-/* 1. 기본 데스크탑 설정: 한 화면 고정 */
+/* PC 버전 기본 유지 */
 .section, .fp-section, .fp-tableCell {
     height: 100vh !important;
 }
 
-/* 2. 모바일(768px 이하)에서 '신속하게' 제한 해제 */
+/* 모바일 전용 최적화 */
 @media screen and (max-width: 768px) {
-    /* 풀페이지의 강제 높이 제어를 무력화합니다 */
-    html, body, .section, .fp-section, .fp-table, .fp-tableCell {
+    /* 풀페이지 응답형 모드일 때 높이값 해제 */
+    .fp-responsive .fp-section, 
+    .fp-responsive .fp-table, 
+    .fp-responsive .fp-tableCell {
         height: auto !important;
-        min-height: auto !important;
+        min-height: 100vh !important; /* 기본은 화면 꽉 차게 */
         display: block !important;
-        overflow: visible !important;
     }
 
-    /* 각 세션별 여백 확보 (잘림 방지 핵심) */
+    /* 리포트 목록(6)과 지점안내(7)는 내용이 길면 늘어나도록 */
     #section6, #section7 {
-        padding-top: 80px !important;
-        padding-bottom: 60px !important;
-        background-attachment: scroll !important;
+        height: auto !important;
+        padding: 80px 0 60px 0 !important;
     }
 
-    /* 세션 6: 리포트 목록 압축 및 가독성 */
+    /* 세션 6 목록 간격 및 글씨 초압축 */
     #section6 .board-row {
-        padding: 10px 15px !important;
-        height: auto !important;
+        padding: 8px 15px !important;
     }
     #section6 .board-row span {
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
     }
 
-    /* 세션 7: 지점 안내 그리드 (한 줄에 4개씩) */
-    #section7 .town-grid {
+    /* 세션 7 지점 그리드 (4개씩) */
+    .town-grid {
         display: flex !important;
         flex-wrap: wrap !important;
         gap: 4px !important;
         justify-content: center !important;
         padding: 0 10px !important;
     }
-
-    #section7 .town-grid a {
-        width: calc(25% - 6px) !important; /* 모바일 4개씩 */
-        height: 34px !important;
-        line-height: 34px !important;
-        font-size: 0.75rem !important;
-        margin-bottom: 4px !important;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
+    .town-grid a {
+        width: calc(25% - 6px) !important; 
+        height: 30px !important;
+        line-height: 30px !important;
+        font-size: 0.7rem !important;
         background: #fff;
-        border-radius: 4px !important;
         border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+        display: block;
     }
 
-    /* 하단 전화번호 버튼 크게 (클릭 미스 방지) */
+    /* 하단 버튼 가독성 */
     #section7 a[href^="tel"] {
         display: block !important;
-        width: 90% !important;
+        width: 85% !important;
         margin: 20px auto 0 !important;
-        padding: 15px !important;
-        font-size: 1.3rem !important;
+        padding: 12px !important;
+        font-size: 1.1rem !important;
         background: #d32f2f !important;
         color: #fff !important;
         border-radius: 50px !important;
+        text-align: center;
         font-weight: bold;
     }
 }
 
-/* 3. 푸터 정렬 (사장님 요청사항) */
-#section8 {
-    background: #1a1a1a !important;
-}
+/* 푸터 정렬 유지 */
+#section8 { background: #1a1a1a !important; }
 #section8 footer {
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto !important;
-    padding: 40px 20px !important;
-    text-align: left !important;
-    color: #888;
+    width: 100%; max-width: 640px; margin: 0 auto !important;
+    padding: 30px 20px !important; text-align: left !important; color: #888;
 }
-#section8 hr {
-    border: 0;
-    border-top: 1px solid #333;
-    margin-bottom: 15px;
-}
+#section8 hr { border: 0; border-top: 1px solid #333; margin-bottom: 15px; }
 </style>
+    
 </head>
 <body>
     <header class="main_header">
@@ -372,6 +357,7 @@ $('#fullpage').fullpage({
 </body>
 
 </html>
+
 
 
 
